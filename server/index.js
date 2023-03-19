@@ -9,6 +9,7 @@ import morgan from "morgan";
 //allows you to properly set paths to configure directories
 import path from "path";
 import { fileURLToPath } from "url";
+import{register} from "./controllers/auth.js"
 // ==========================Configurations==========================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,9 @@ filename: function (req, file, cb) {
     }
 });
 const upload = multer({ storage });
+
+// ==========================ROUTES WITH FILES==========================
+app.post("/auth/register", upload.single("picture"), register)
 
 // ==========================Mongoose Setup==========================
 const PORT = process.env.PORT || 6001; // if PORT doesnt work on 3001, backup port will be 6001
